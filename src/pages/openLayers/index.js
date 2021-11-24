@@ -1,58 +1,107 @@
-import React, { useRef, useState, useEffect } from "react"
+import React, {useRef, useState, useEffect} from "react"
 import "./style.scss";
 import MenuLayout from "../../layout/MenuLayout";
 
-import {
-  interaction, layer, custom, control, //name spaces
-  Interactions, Overlays, Controls,     //group
-  Map, Layers, Overlay, Util    //objects
-} from "react-openlayers";
+// import {
+//   interaction, layer, custom, control,
+//   Interactions, Overlays, Controls,
+//   Map, Layers, Overlay, Util
+// } from "react-openlayers";
 
-const Openlayer = ({ children, zoom, center }) => {
-  
-  return (
-    <div>
+import Map from 'ol/Map';
+import View from 'ol/View';
+import TileLayer from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
+import {fromLonLat} from 'ol/proj';
+import Polygon from 'ol/geom/Polygon';
+import VectorLayer from "ol/layer/Vector";
+import VectorSource from "ol/source/Vector";
+import GeoJSON from "ol/format/GeoJSON"
+import Feature from "ol/Feature"
+
+
+const OpenLayers = () => {
+
+    useEffect(() => {
+
+        let geojsonObject = {
+            'type': 'FeatureCollection',
+            'crs': {
+                'type': 'name',
+                'properties': {
+                    'name': 'EPSG:3857',
+                },
+            },
+            'features': [
+                {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Polygon',
+                        'coordinates': [
+                            [
+                                [-60, 40],
+                                [-67, 43],
+                                [-80, 46],
+                                [-67, 43],
+                                [-60, 40],
+                            ],
+                        ],
+                    },
+                }
+            ]
+        }
+
+
+        let arr = [
+            [-60, 40],
+            [-67, 43],
+            [-100, 46],
+            [-67, 43],
+            [-60, 40],
+        ]
+
+        let feature = new Feature({
+            geometry: new Polygon([arr]).transform('EPSG:4326','EPSG:3857')
+        })
+
+        let map = new Map({
+            target: 'map',
+            view: new View({
+                center: fromLonLat([-60, 40]),
+                zoom: 4
+            }),
+            layers: [
+                new TileLayer({
+                    source: new OSM()
+                }),
+                new VectorLayer({
+                    source: new VectorSource({
+                        features: [feature]
+                        // features: new GeoJSON().readFeatures(feature)
+                    })
+                })
+            ],
+        });
+
+
+    }, [])
+
+    useEffect(() => {
+
+    }, [])
+
+
+    return (
         <MenuLayout>
-            openlayers
-            <Map view={{center: [0, 0], zoom: 2}} >
-                <Layers>
-                    <Layers.Title></Layers.Title>
-                </Layers>
-            </Map>
+
+            <div className={"mapContainer"}>
+
+                <div id={'map'} className={'map'}/>
+            </div>
         </MenuLayout>
-
-      {/*<Map view={{center: [0, 0], zoom: 2}} onClick={showPopup}>*/}
-      {/*  <Layers>*/}
-      {/*    <layer.Tile/>*/}
-      {/*    <layer.Vector source={markers} style={markers.style} zIndex="1" />*/}
-      {/*  </Layers>*/}
-      {/*  <Overlays>*/}
-      {/*    <Overlay */}
-      {/*      ref={comp => this.overlayComp = comp}*/}
-      {/*      element="#popup" />*/}
-      {/*  </Overlays>*/}
-      {/*  <Controls attribution={false} zoom={true}>*/}
-      {/*    <control.Rotate />*/}
-      {/*    <control.ScaleLine />*/}
-      {/*    <control.FullScreen />*/}
-      {/*    <control.OverviewMap />*/}
-      {/*    <control.ZoomSlider />*/}
-      {/*    <control.ZoomToExtent />*/}
-      {/*    <control.Zoom />*/}
-      {/*  </Controls>*/}
-      {/*  <Interactions>*/}
-      {/*    <interaction.Select style={selectedMarkerStyle} />*/}
-      {/*    <interaction.Draw source={markers} type='Point' />*/}
-      {/*    <interaction.Modify features={markers.features} />*/}
-      {/*  </Interactions>*/}
-      {/*</Map>*/}
-
-      {/*<custom.Popup ref={comp => this.popupComp = comp}>*/}
-      {/*</custom.Popup>*/}
-    </div>
-  )
+    )
 }
-export default Openlayer;
+export default OpenLayers;
 
 
 

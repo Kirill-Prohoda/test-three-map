@@ -13,8 +13,7 @@ import Menu from './components/menu'
 
 import Mapbox from './pages/mapbox';
 import Leaflet from './pages/leaflet';
-import OpenLayer from './pages/openLayers';
-// import {Switch} from "react-router";
+import OpenLayers from './pages/openLayers';
 import {useActions} from "./hooks/useActions";
 import MenuLayout from "./layout/MenuLayout";
 
@@ -25,7 +24,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <>
         <Switch>
             <RouteWithAuth exact path={'/'}>
                 <MenuLayout>
@@ -34,10 +33,10 @@ function App() {
             </RouteWithAuth>
             <RouteWithAuth path={'/mapbox'} component={Mapbox} />
             <RouteWithAuth path={'/leaflet'} component={Leaflet} />
-            <RouteWithAuth path={'/openlayers'} component={OpenLayer} />
+            <RouteWithAuth path={'/openlayers'} component={OpenLayers} />
             <Route path={'/log'} component={AuthContainer}/>
         </Switch>
-    </div>
+    </>
   );
 }
 
