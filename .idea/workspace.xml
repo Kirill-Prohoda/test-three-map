@@ -19,9 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ac27655-a586-4c4b-9180-0ee6b5b557b1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="2ac27655-a586-4c4b-9180-0ee6b5b557b1" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,7 +57,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637755115868</updated>
-      <workItem from="1637755123472" duration="14988000" />
+      <workItem from="1637755123472" duration="15649000" />
     </task>
     <task id="LOCAL-00001" summary="save">
       <created>1637755283511</created>
@@ -82,7 +80,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637824214385</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="done">
+      <created>1637825240845</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1637825240845</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,9 +126,9 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1878" height="279" key="GridCell.Tab.0.right/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637756836816" />
-    <state x="2475" y="259" width="800" height="523" key="Vcs.Push.Dialog.v2" timestamp="1637759526417">
+    <state x="2475" y="259" width="800" height="523" key="Vcs.Push.Dialog.v2" timestamp="1637825269278">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2475" y="259" width="800" height="523" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637759526417" />
+    <state x="2475" y="259" width="800" height="523" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637825269278" />
   </component>
 </project>
