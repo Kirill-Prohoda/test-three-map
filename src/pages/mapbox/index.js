@@ -20,16 +20,26 @@ const Map = ReactMapboxGl({
 
 const Mapbox = () =>{
 
-    const {FetchFullListFields} = useActions()
+    const {fieldsList} = useTypedSelector(state=>state.fieldsStore)
 
-
+    let [fields, setFields] = useState([])
 
     useEffect(()=>{
-        FetchFullListFields()
-    },[])
+        if(fieldsList.length){
+
+            let list = fieldsList.flatMap((i,index)=>{
+                if(i.geometry?.coordinates.length === 1){
+                    return i.geometry.coordinates
+                }
+                return []
+            })
+
+            debugger
+            setFields(list)
+        }
+    },[fieldsList])
 
 
-  const {fieldsList} = useTypedSelector(state=>state.fieldsStore)
 
 
   const mapContainer = useRef(null);
@@ -37,92 +47,66 @@ const Mapbox = () =>{
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
+
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-67.13734, 45.13745],
-      zoom: 9
+      style: 'mapbox://styles/mapbox/streets-v9',
+      center: [55.229847731213766, 55.34988509327104],
+      zoom: 12
     });
-
-
 
   }, []);
 
 
-//   useEffect(()=>{
-//
-//       if(fieldsList.length){
-//           map.current.on('load', () => {
-// .
-//               map.current.addSource('maine', {
-//                   'type': 'geojson',
-//                   'data': {
-//                       'type': 'Feature',
-//                       'geometry': {
-//                           'type': 'Polygon',
-//                           'coordinates': [
-//                               [
-//                                   [-67.13734, 45.13745],
-//                                   [-66.96466, 44.8097],
-//                                   [-68.03252, 44.3252],
-//                                   [-69.06, 43.98],
-//                                   [-70.11617, 43.68405],
-//                                   [-70.64573, 43.09008],
-//                                   [-70.75102, 43.08003],
-//                                   [-70.79761, 43.21973],
-//                                   [-70.98176, 43.36789],
-//                                   [-70.94416, 43.46633],
-//                                   [-71.08482, 45.30524],
-//                                   [-70.66002, 45.46022],
-//                                   [-70.30495, 45.91479],
-//                                   [-70.00014, 46.69317],
-//                                   [-69.23708, 47.44777],
-//                                   [-68.90478, 47.18479],
-//                                   [-68.2343, 47.35462],
-//                                   [-67.79035, 47.06624],
-//                                   [-67.79141, 45.70258],
-//                                   [-67.13734, 45.13745]
-//                               ]
-//                           ]
-//                       }
-//                   }
-//               })
-//           })
-//       }
-//   },[fieldsList])
+  useEffect(()=>{
 
+    if(fields.length){
+        map.current.on('load', function(){
+            let obj = async ()=>{
+                let r = await map.current.addSource('maine', {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'Feature',
+                        'geometry': {
+                            'type': 'Polygon',
+                            'coordinates': fields
+                        }
+                    }
+                });
+                let rr = await map.current.addLayer({
+                    'id': 'maine',
+                    'type': 'fill',
+                    'source': 'maine', // reference the data source
+                    'layout': {},
+                    'paint': {
+                        'fill-color': '#0080ff', // blue color fill
+                        'fill-opacity': 0.5
+                    }
+                });
+                let rrr = await map.current.addLayer({
+                    'id': 'outline',
+                    'type': 'line',
+                    'source': 'maine',
+                    'layout': {},
+                    'paint': {
+                        'line-color': '#000',
+                        'line-width': 3
+                    }
+                });
+            }
+            obj()
+        })
+
+    }
+
+  },[fields])
 
   return (
     <MenuLayout>
-      mapbox
         <div className={st.container}>
             <div ref={mapContainer} className="map-container" />
         </div>
         <br/>
-        {/*<Map*/}
-        {/*    style="mapbox://styles/mapbox/streets-v9"*/}
-        {/*    containerStyle={{*/}
-        {/*        height: '100vh',*/}
-        {/*        width: '100vw'*/}
-        {/*    }}*/}
-        {/*>*/}
-        {/*    <Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}>*/}
-        {/*        <Feature coordinates={[-0.481747846041145, 51.3233379650232]} />*/}
-        {/*    </Layer>*/}
-        {/*</Map>;*/}
-        {/*<Map*/}
-        {/*    center={[-70.9, 42.35]}*/}
-        {/*    zoom={[9]}*/}
-        {/*    style="mapbox://styles/mapbox/streets-v11"*/}
-        {/*    containerStyle={{*/}
-        {/*        height: '100%',*/}
-        {/*        width: '100vw'*/}
-        {/*    }}*/}
-        {/*>*/}
-        {/*    /!*<Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}>*!/*/}
-        {/*    /!*    /!*<Feature coordinates={[-0.481747846041145, 51.3233379650232]} />*!/*!/*/}
-        {/*    /!*</Layer>*!/*/}
-        {/*</Map>*/}
     </MenuLayout>
   );
 }

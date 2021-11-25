@@ -21,7 +21,13 @@ import MenuLayout from "./layout/MenuLayout";
 
 function App() {
 
+    const {FetchFullListFields} = useActions()
 
+
+
+    useEffect(()=>{
+        FetchFullListFields()
+    },[])
 
   return (
     <>
