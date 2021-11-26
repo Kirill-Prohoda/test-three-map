@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import 'leaflet/dist/leaflet.css';
 import './style.scss'
 import MenuLayout from "../../layout/MenuLayout";
-import {CircleMarker, Polygon, Tooltip} from "react-leaflet";
+import {CircleMarker, Polygon, Tooltip, FeatureGroup} from "react-leaflet";
 
 import {
     LayersControl,
@@ -12,26 +12,35 @@ import {
 
 import LayerGroup from "ol/layer/Group";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {useActions} from "../../hooks/useActions";
+
 
 const Leaflet = () =>{
 
     const {fieldsList} = useTypedSelector(state=>state.fieldsStore)
+    const {connectFetchStatusUnits, disconnectFetchStatusUnits} = useActions()
 
     let [fields, setFields] = useState([])
+    let [unit, setUnit] = useState([])
 
     useEffect(()=>{
         if(fieldsList.length){
-
             let list = fieldsList.flatMap(i=>{
                 if(i.geometry?.coordinates){
                     return [i.geometry.coordinates]
                 }
                 return []
             })
-
             setFields(list)
         }
     },[fieldsList])
+
+    useEffect(()=>{
+        connectFetchStatusUnits()
+        return ()=>{
+            disconnectFetchStatusUnits()
+        }
+    },[])
 
   return(
     <div>
@@ -50,17 +59,54 @@ const Leaflet = () =>{
                 />
 
 
-                {/*<LayerGroup>*/}
-                    {fields.map((field,index)=>{
-                            debugger
+                <FeatureGroup>
+                        {fields.map((field,index)=>{
                             return (
                                 <Polygon
                                     positions={field}
                                 />
                             )
                         })
+                        }
+                </FeatureGroup>
+
+                <FeatureGroup>
+                    {fields.map((field,index)=>{
+                        return (
+                            <Polygon
+                                positions={field}
+                            />
+                        )
+                    })
                     }
-                {/*</LayerGroup>*/}
+                </FeatureGroup>
+
+                    {/*<LayersControl.Overlay name="Поля2">*/}
+                    {/*    {fields.map((field,index)=>{*/}
+                    {/*        return (*/}
+                    {/*            <Polygon*/}
+                    {/*                positions={field}*/}
+                    {/*            />*/}
+                    {/*        )*/}
+                    {/*    })*/}
+                    {/*    }*/}
+                    {/*</LayersControl.Overlay>*/}
+                {/*</FeatureGroup>*/}
+
+
+
+                {/*{fields.map((field,index)=>{*/}
+                {/*    return (*/}
+                {/*        <Polygon*/}
+                {/*            positions={field}*/}
+                {/*        />*/}
+                {/*    )*/}
+                {/*})*/}
+                {/*}*/}
+
+                    {/*<LayerGroup>*/}
+
+                    {/*</LayerGroup>*/}
 
                 {/*<MapSetting typeLayers={typeLayers}/>*/}
 

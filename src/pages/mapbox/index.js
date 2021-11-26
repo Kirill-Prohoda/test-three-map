@@ -34,7 +34,6 @@ const Mapbox = () =>{
                 return []
             })
 
-            debugger
             setFields(list)
         }
     },[fieldsList])
@@ -63,7 +62,7 @@ const Mapbox = () =>{
     if(fields.length){
         map.current.on('load', function(){
             let obj = async ()=>{
-                let r = await map.current.addSource('maine', {
+                let r1 = await map.current.addSource('maine', {
                     'type': 'geojson',
                     'data': {
                         'type': 'Feature',
@@ -73,7 +72,20 @@ const Mapbox = () =>{
                         }
                     }
                 });
-                let rr = await map.current.addLayer({
+
+                let r2 = await map.current.addSource('qwerty', {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'Feature',
+                        'geometry': {
+                            'type': 'Polygon',
+                            'coordinates': fields
+                        }
+                    }
+                });
+
+
+                let rr1 = await map.current.addLayer({
                     'id': 'maine',
                     'type': 'fill',
                     'source': 'maine', // reference the data source
@@ -83,7 +95,7 @@ const Mapbox = () =>{
                         'fill-opacity': 0.5
                     }
                 });
-                let rrr = await map.current.addLayer({
+                let rrr1 = await map.current.addLayer({
                     'id': 'outline',
                     'type': 'line',
                     'source': 'maine',
@@ -93,6 +105,29 @@ const Mapbox = () =>{
                         'line-width': 3
                     }
                 });
+
+
+                let rr2 = await map.current.addLayer({
+                    'id': 'qwerty',
+                    'type': 'fill',
+                    'source': 'qwerty', // reference the data source
+                    'layout': {},
+                    'paint': {
+                        'fill-color': '#e20909', // blue color fill
+                        'fill-opacity': 0.5
+                    }
+                });
+                let rrr2 = await map.current.addLayer({
+                    'id': 'outline',
+                    'type': 'line',
+                    'source': 'qwerty',
+                    'layout': {},
+                    'paint': {
+                        'line-color': '#090202',
+                        'line-width': 3
+                    }
+                });
+
             }
             obj()
         })

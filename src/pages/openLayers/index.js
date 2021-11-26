@@ -40,7 +40,6 @@ const OpenLayers = () => {
                 return []
             })
 
-            debugger
             setFields(list)
         }
     },[fieldsList])
@@ -73,21 +72,32 @@ const OpenLayers = () => {
     useEffect(() => {
         if(fields.length){
             // [lng, lat]
-            debugger
             let obj = async ()=>{
-                let fieldsListCopy = fields
+                let fieldsTime = fields
+                let fieldsSecond = fields
 
-                let polygon = await new Polygon(fieldsListCopy).transform('EPSG:4326', 'EPSG:3857');
-                let feature = await new Feature(polygon);
+                let polygonTime = await new Polygon(fieldsTime).transform('EPSG:4326', 'EPSG:3857');
+                let polygonSecond = await new Polygon(fieldsSecond).transform('EPSG:4326', 'EPSG:3857');
 
-                let vectorSource = await new VectorSource();
-                vectorSource.addFeature(feature);
+                let featureTime = await new Feature(polygonTime);
+                let featureSecond = await new Feature(polygonSecond);
 
-                let vectorLayer = await new VectorLayer({
-                    source: vectorSource
+                let vectorSourceTime = await new VectorSource();
+                let vectorSourceSecond = await new VectorSource();
+
+                vectorSourceTime.addFeature(featureTime);
+                vectorSourceSecond.addFeature(featureSecond);
+
+                let vectorLayerTime = await new VectorLayer({
+                    source: vectorSourceTime
                 });
 
-                await map.addLayer(vectorLayer);
+                let vectorLayerSecond = await new VectorLayer({
+                    source: vectorSourceSecond
+                });
+
+                let t = await map.addLayer(vectorLayerTime);
+                let tt = await map.addLayer(vectorLayerSecond);
             }
             obj()
 
@@ -98,9 +108,7 @@ const OpenLayers = () => {
 
     return (
         <MenuLayout>
-
             <div className={"mapContainer"}>
-
                 <div id={'map'} className={'map'}/>
             </div>
         </MenuLayout>

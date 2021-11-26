@@ -19,7 +19,21 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ac27655-a586-4c4b-9180-0ee6b5b557b1" name="Default Changelist" comment="" />
+    <list default="true" id="2ac27655-a586-4c4b-9180-0ee6b5b557b1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/store/unitsStore/action.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/store/unitsStore/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/leaflet/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/leaflet/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/mapbox/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/mapbox/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/openLayers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/openLayers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setupProxy.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setupProxy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/action-creators.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/action-creators.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/redusers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/redusers.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,9 +57,16 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/store" />
     <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/store" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -57,7 +78,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637755115868</updated>
-      <workItem from="1637755123472" duration="15649000" />
+      <workItem from="1637755123472" duration="15877000" />
+      <workItem from="1637825715966" duration="5870000" />
+      <workItem from="1637836157428" duration="177000" />
+      <workItem from="1637836873217" duration="29807000" />
     </task>
     <task id="LOCAL-00001" summary="save">
       <created>1637755283511</created>
@@ -87,7 +111,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637825240845</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="done">
+      <created>1637825478406</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1637825478406</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -103,6 +134,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="save" />
@@ -110,25 +142,42 @@
     <option name="LAST_COMMIT_MESSAGE" value="done" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1878" height="279" key="GridCell.Tab.0.bottom" timestamp="1637756836816">
+    <state x="2613" y="273" width="524" height="495" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1637902393940">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="279" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637756836816" />
-    <state width="1878" height="279" key="GridCell.Tab.0.center" timestamp="1637756836816">
+    <state x="2613" y="273" width="524" height="495" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1080/0.0.1920.1048@1920.0.1920.1080" timestamp="1637902393940" />
+    <state width="1878" height="279" key="GridCell.Tab.0.bottom" timestamp="1637825515830">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="279" key="GridCell.Tab.0.center/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637756836816" />
-    <state width="1878" height="279" key="GridCell.Tab.0.left" timestamp="1637756836815">
+    <state width="1878" height="279" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637825515830" />
+    <state width="1878" height="279" key="GridCell.Tab.0.center" timestamp="1637825515829">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="279" key="GridCell.Tab.0.left/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637756836815" />
-    <state width="1878" height="279" key="GridCell.Tab.0.right" timestamp="1637756836816">
+    <state width="1878" height="279" key="GridCell.Tab.0.center/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637825515829" />
+    <state width="1878" height="279" key="GridCell.Tab.0.left" timestamp="1637825515829">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="279" key="GridCell.Tab.0.right/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637756836816" />
-    <state x="2475" y="259" width="800" height="523" key="Vcs.Push.Dialog.v2" timestamp="1637825269278">
+    <state width="1878" height="279" key="GridCell.Tab.0.left/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637825515829" />
+    <state width="1878" height="279" key="GridCell.Tab.0.right" timestamp="1637825515830">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2475" y="259" width="800" height="523" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637825269278" />
+    <state width="1878" height="279" key="GridCell.Tab.0.right/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637825515830" />
+    <state x="2475" y="259" width="800" height="523" key="Vcs.Push.Dialog.v2" timestamp="1637825784864">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2475" y="259" width="800" height="523" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637825784864" />
+    <state x="2586" y="272" width="587" height="502" key="find.popup" timestamp="1637830624656">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2586" y="272" width="587" height="502" key="find.popup/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637830624656" />
+    <state x="2544" y="240" key="run.anything.popup" timestamp="1637902241382">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2544" y="240" key="run.anything.popup/1920.0.1920.1080/0.0.1920.1048@1920.0.1920.1080" timestamp="1637902241382" />
+    <state x="2544" y="240" key="run.anything.popup/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637836310136" />
+    <state x="2543" y="230" width="670" height="58" key="search.everywhere.popup" timestamp="1637836308966">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2543" y="230" width="670" height="58" key="search.everywhere.popup/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637836308966" />
   </component>
 </project>

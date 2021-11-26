@@ -16,18 +16,34 @@ import Leaflet from './pages/leaflet';
 import OpenLayers from './pages/openLayers';
 import {useActions} from "./hooks/useActions";
 import MenuLayout from "./layout/MenuLayout";
+import {useTypedSelector} from "./hooks/useTypedSelector";
 
 
 
 function App() {
 
-    const {FetchFullListFields} = useActions()
+    let {auth} = useTypedSelector(state => state.authStore)
+    const {
+        FetchFullListFields,
+        FetchUnits,
+        connectFetchStatusUnits,
+        disconnectFetchStatusUnits,
+    } = useActions()
 
 
 
     useEffect(()=>{
-        FetchFullListFields()
-    },[])
+        if(auth){
+            FetchFullListFields()
+            FetchUnits()
+
+            connectFetchStatusUnits()
+            return ()=>{
+                disconnectFetchStatusUnits()
+            }
+        }
+
+    },[auth])
 
   return (
     <>
