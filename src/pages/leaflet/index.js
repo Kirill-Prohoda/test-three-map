@@ -36,11 +36,13 @@ const Leaflet = () =>{
     },[fieldsList])
 
     useEffect(()=>{
-        connectFetchStatusUnits()
+        if(fieldsList.length){
+            connectFetchStatusUnits()
+        }
         return ()=>{
             disconnectFetchStatusUnits()
         }
-    },[])
+    },[fieldsList])
 
   return(
     <div>
@@ -63,7 +65,7 @@ const Leaflet = () =>{
                         {fields.map((field,index)=>{
                             return (
                                 <Polygon
-                                    positions={field}
+                                    positions={field.map(i=>i.map(j=>[j[1], j[0]]))}
                                 />
                             )
                         })
@@ -74,7 +76,7 @@ const Leaflet = () =>{
                     {fields.map((field,index)=>{
                         return (
                             <Polygon
-                                positions={field}
+                                positions={field.map(i=>i.map(j=>[j[1], j[0]]))}
                             />
                         )
                     })

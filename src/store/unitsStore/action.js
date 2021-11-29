@@ -7,7 +7,7 @@ export const keyWords = {
     FETCH_UNITS_POSITION : "FETCH_UNITS_POSITION"
 }
 
-var wsLogin, ws ;
+var wsLogin, ws, msgCopy ;
 //==========================================================================>
 
 const uni = {
@@ -30,7 +30,6 @@ const uni = {
     },
 
     connectFetchStatusUnits: ()=> dispatch => {
-        let msgCopy;
 
         let date1 = new Date();
         let date2 = new Date();
@@ -67,11 +66,19 @@ const uni = {
                     event: "setDynamic"
                 }))
             } else {
-                dispatch(uni.fetchPositionUnits(msg))
+                msgCopy = JSON.parse(msg.data)
+                switch (msgCopy.event) {
+                    case "changes" : {
+                        dispatch( uni.fetchPositionUnits(msgCopy) )
+                    }
+                }
+
             }
         }
 
     },
+
+
 
     disconnectFetchStatusUnits: ()=> dispatch => {
         if(ws) ws.onclose = () =>{ console.log('socket close') }

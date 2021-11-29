@@ -10,20 +10,34 @@ let initState = {
     unitsIsLoading:false,
 }
 
-const fieldLayerStore = (state = initState, action)=>{
+const unitsLayerStore = (state = initState, action)=>{
 
     switch (action.type) {
         case keyWords.FETCH_UNITS:
-            debugger
+
             return{
                 ...state,
-                unitsList:[...action.payload],
+                unitsList:[...action.payload.data],
             }
         case keyWords.FETCH_UNITS_POSITION:
+            let unitPositionList;
+
+            if(state.unitsPosition.length){
+                unitPositionList = [...state?.unitsPosition, ...action?.payload?.data?.items]
+            }else{
+                unitPositionList = [...action.payload.data.items]
+            }
+
+            unitPositionList = unitPositionList.map((position, listPosition)=>{
+                // if(listPosition.filter(j=>))
+            })
+
+
             debugger
+
             return{
                 ...state,
-                unitsPosition:[...action.payload],
+                unitsPosition:[...unitPositionList],
             }
 
         case keyWords.UNITS_STATUS_IS_LOADING:
@@ -40,4 +54,4 @@ const fieldLayerStore = (state = initState, action)=>{
             return state
     }
 }
-export default fieldLayerStore;
+export default unitsLayerStore;
