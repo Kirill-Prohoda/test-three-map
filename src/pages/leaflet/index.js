@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react'
 import 'leaflet/dist/leaflet.css';
 import './style.scss'
 import MenuLayout from "../../layout/MenuLayout";
-import {CircleMarker, Polygon, Tooltip, FeatureGroup} from "react-leaflet";
-
+import {CircleMarker, Polygon, Tooltip, FeatureGroup, Marker} from "react-leaflet";
+import 'leaflet/dist/leaflet.css';
 import {
     LayersControl,
     MapContainer,
@@ -18,10 +18,11 @@ import {useActions} from "../../hooks/useActions";
 const Leaflet = () =>{
 
     const {fieldsList} = useTypedSelector(state=>state.fieldsStore)
+    const {unitsPosition} = useTypedSelector(state=>state.unitsStore)
     const {connectFetchStatusUnits, disconnectFetchStatusUnits} = useActions()
 
     let [fields, setFields] = useState([])
-    let [unit, setUnit] = useState([])
+    let [units, setUnit] = useState([])
 
     useEffect(()=>{
         if(fieldsList.length){
@@ -44,7 +45,17 @@ const Leaflet = () =>{
         }
     },[fieldsList])
 
-  return(
+
+
+    useEffect(()=>{
+        setUnit(unitsPosition)
+
+
+    },[unitsPosition])
+
+
+
+    return(
     <div>
         <MenuLayout>
             leaflet
@@ -79,6 +90,22 @@ const Leaflet = () =>{
                                 positions={field.map(i=>i.map(j=>[j[1], j[0]]))}
                             />
                         )
+                    })
+                    }
+                </FeatureGroup>
+
+
+                <FeatureGroup>
+                    {units.map((unit,index)=>{
+
+                        if(unit?.values['rt_position']){
+                            return (
+                                <Marker
+                                    position={[...unit?.values['rt_position'].reverse()]}
+                                />
+                            )
+                        }
+
                     })
                     }
                 </FeatureGroup>

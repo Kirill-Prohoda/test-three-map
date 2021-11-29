@@ -2,9 +2,8 @@ import {keyWords} from "./action";
 
 let initState = {
     unitsList: [],
-    unitsPosition: [],
 
-    unitsFull: [],
+    unitsPosition: [],
 
     unitsError:"",
     unitsIsLoading:false,
@@ -20,24 +19,37 @@ const unitsLayerStore = (state = initState, action)=>{
                 unitsList:[...action.payload.data],
             }
         case keyWords.FETCH_UNITS_POSITION:
-            let unitPositionList;
+            // let unitPositionList;
+            //
+            // if(state.unitsPosition.length){
+            //     unitPositionList = [...state.unitsPosition, ...action?.payload?.data?.items]
+            // }else{
+            //     unitPositionList = [...action.payload.data.items]
+            // }
+            //
+            // unitPositionList = unitPositionList.flatMap((element, position, listArray)=>{
+            //     let listFilterPosition = listArray.filter(i=>i.id === element.id)
+            //     if(listFilterPosition.length>1){
+            //         return [listFilterPosition[listFilterPosition.length-1]]
+            //     }else{
+            //         return [element]
+            //     }
+            // })
 
-            if(state.unitsPosition.length){
-                unitPositionList = [...state?.unitsPosition, ...action?.payload?.data?.items]
-            }else{
-                unitPositionList = [...action.payload.data.items]
-            }
-
-            unitPositionList = unitPositionList.map((position, listPosition)=>{
-                // if(listPosition.filter(j=>))
-            })
-
-
-            debugger
+            // let r = unitsPosition.map((element, index, array)=>{
+            //     let r = array.filter(j=>j.id === element.id)
+            //     return r.reduce((accum, elemReducer)=>{
+            //         return {
+            //             id: elemReducer.id,
+            //             values: {...accum.values, ...elemReducer.values}
+            //         }
+            //     })
+            //
+            // })
 
             return{
                 ...state,
-                unitsPosition:[...unitPositionList],
+                unitsPosition:[...state.unitsPosition, ...action?.payload?.data?.items],
             }
 
         case keyWords.UNITS_STATUS_IS_LOADING:
