@@ -9,40 +9,46 @@ import {useActions} from "../../hooks/useActions";
 import MenuLayout from "../../layout/MenuLayout"; // eslint-disable-line import/no-webpack-loader-syntax
 
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VpemVyIiwiYSI6ImNrd2RjZjNkajFiZDkybnFsemN1NXd0b2gifQ.onnOB_zr-IcaaeZ5WWcJOw'
+mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VpemVyIiwiYSI6ImNrd2x5ZmV3eDI2dGoydnF2c2VwNHFndDQifQ.MTAqDdEB0jmoNdPOkIrXDA'
 
-const Map = ReactMapboxGl({
-    accessToken:
-        'pk.eyJ1IjoiZ2VpemVyIiwiYSI6ImNrd2RjZjNkajFiZDkybnFsemN1NXd0b2gifQ.onnOB_zr-IcaaeZ5WWcJOw'
-});
+// const Map = ReactMapboxGl({
+//     accessToken:
+//         'sk.eyJ1IjoiZ2VpemVyIiwiYSI6ImNrd2x5ZDF5NTI2aDYyd25zZGcyczJ6ZjUifQ.9oF9MMYSUJaLwhUtj3Fr4Q'
+// });
 
 
 
 const Mapbox = () =>{
 
+    const mapContainer = useRef(null);
+    const map = useRef(null);
+
     const {fieldsList} = useTypedSelector(state=>state.fieldsStore)
 
+    const {unitsPosition} = useTypedSelector(state=>state.unitsStore)
+    const {connectFetchStatusUnits, disconnectFetchStatusUnits} = useActions()
+
     let [fields, setFields] = useState([])
+    let [units, setUnit] = useState([])
 
     useEffect(()=>{
         if(fieldsList.length){
-
-            let list = fieldsList.flatMap((i,index)=>{
-                if(i.geometry?.coordinates.length === 1){
+            let list = fieldsList.flatMap(i=>{
+                if(i.geometry?.coordinates){
                     return i.geometry.coordinates
                 }
                 return []
             })
-
             setFields(list)
         }
     },[fieldsList])
 
+    useEffect(()=>{
+        setUnit(unitsPosition)
+    },[unitsPosition])
 
 
 
-  const mapContainer = useRef(null);
-  const map = useRef(null);
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -50,7 +56,8 @@ const Mapbox = () =>{
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v9',
-      center: [55.229847731213766, 55.34988509327104],
+      // center: [55.2694, 54.67340],
+      center: [56.12674290219766,55.26458711408649],
       zoom: 12
     });
 
@@ -58,11 +65,13 @@ const Mapbox = () =>{
 
 
   useEffect(()=>{
-
-    if(fields.length){
+    if(fields.length && units.length && map.current){
         map.current.on('load', function(){
-            let obj = async ()=>{
-                let r1 = await map.current.addSource('maine', {
+
+        //===========================================================================>
+            // polygons
+
+                let r1 = map.current.addSource('maine', {
                     'type': 'geojson',
                     'data': {
                         'type': 'Feature',
@@ -73,72 +82,82 @@ const Mapbox = () =>{
                     }
                 });
 
-                let r2 = await map.current.addSource('qwerty', {
-                    'type': 'geojson',
-                    'data': {
-                        'type': 'Feature',
-                        'geometry': {
-                            'type': 'Polygon',
-                            'coordinates': fields
-                        }
-                    }
-                });
-
-
-                let rr1 = await map.current.addLayer({
-                    'id': 'maine',
+                let rr1 = map.current.addLayer({
+                    'id': 'maines',
                     'type': 'fill',
                     'source': 'maine', // reference the data source
                     'layout': {},
                     'paint': {
-                        'fill-color': '#0080ff', // blue color fill
+                        'fill-color': '#1962ba', // blue color fill
                         'fill-opacity': 0.5
                     }
                 });
-                let rrr1 = await map.current.addLayer({
+                let rrr1 = map.current.addLayer({
                     'id': 'outline',
                     'type': 'line',
                     'source': 'maine',
                     'layout': {},
                     'paint': {
-                        'line-color': '#000',
+                        'line-color': '#1c59c1',
                         'line-width': 3
                     }
                 });
+        //===============================================================>
+            let g1 = map.current.addSource('points', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'FeatureCollection',
+                    'features': [
+                        ...units.map(unit=>{
+                            debugger
+                            if(unit.values['rt_position']){
+                                let lat = unit.values['rt_position'][0]
+                                let lon = unit.values['rt_position'][1]
 
+                                return {
+                                    'type': 'Feature',
+                                    'geometry': {
+                                        'type': 'Point',
+                                        'coordinates': [lat, lon]
+                                    },
+                                    'properties': {
+                                        'title': unit.id
+                                    }
+                                }
+                            }
 
-                let rr2 = await map.current.addLayer({
-                    'id': 'qwerty',
-                    'type': 'fill',
-                    'source': 'qwerty', // reference the data source
-                    'layout': {},
-                    'paint': {
-                        'fill-color': '#e20909', // blue color fill
-                        'fill-opacity': 0.5
-                    }
-                });
-                let rrr2 = await map.current.addLayer({
-                    'id': 'outline',
-                    'type': 'line',
-                    'source': 'qwerty',
-                    'layout': {},
-                    'paint': {
-                        'line-color': '#090202',
-                        'line-width': 3
-                    }
-                });
+                        })
+                    ],
+                }
+            });
 
-            }
-            obj()
+            let gg1 = map.current.addLayer({
+                'id': 'point',
+                'type': 'circle',
+                'source': 'points', // reference the data source
+                "paint": {
+                    "circle-radius": 15,
+                    "circle-color": '#f30909'
+                },
+
+            });
+            //=================================================================>
         })
-
     }
+  },[fields,units, map.current])
 
-  },[fields])
+    // useEffect(()=>{
+    //     if(units.length && map.current){
+    //         map.current.on('load', function(){
+    //
+    //
+    //         })
+    //     }
+    // },[units, map.current])
 
   return (
     <MenuLayout>
-        <div className={st.container}>
+        <div className={'mapbox__container'}>
             <div ref={mapContainer} className="map-container" />
         </div>
         <br/>

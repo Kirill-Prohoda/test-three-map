@@ -1,12 +1,13 @@
 import Menu from "../components/menu";
 import React from "react";
+import './style.scss'
 
 
 const MenuLayout = ({children}) =>{
     return(
-        <div style={{width: '100%', height: '100%'}}>
-            <div><Menu/></div>
-            <div style={{width: '100%', height: '100%'}}>{children}</div>
+        <div className={'menuLay__container'}>
+            <div className={'menuLay__menu'}><Menu/></div>
+            <div className={'menuLay__main'}>{children}</div>
         </div>
     )
 }

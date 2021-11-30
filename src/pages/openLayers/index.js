@@ -14,12 +14,19 @@ import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import {fromLonLat} from 'ol/proj';
 import Polygon from 'ol/geom/Polygon';
+import {Zoom, ScaleLine} from 'ol/control';
+import {Circle, Stroke, Style, Fill} from 'ol/style';
+import Point from 'ol/geom/Point'
 import VectorLayer from "ol/layer/Vector";
+import Tile from "ol/layer/Tile";
+import VectorTile from "ol/layer/VectorTile";
 import VectorSource from "ol/source/Vector";
 import GeoJSON from "ol/format/GeoJSON"
 import Feature from "ol/Feature"
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {Vector} from "ol";
+import {createXYZ} from 'ol/tilegrid'
+import {useActions} from "../../hooks/useActions";
 
 
 var map;
@@ -27,34 +34,72 @@ var map;
 const OpenLayers = () => {
 
     const {fieldsList} = useTypedSelector(state=>state.fieldsStore)
+    const {unitsPosition} = useTypedSelector(state=>state.unitsStore)
+    const {connectFetchStatusUnits, disconnectFetchStatusUnits} = useActions()
 
     let [fields, setFields] = useState([])
+    let [units, setUnit] = useState([])
 
     useEffect(()=>{
         if(fieldsList.length){
-
-            let list = fieldsList.flatMap((i,index)=>{
-                if(i.geometry?.coordinates.length === 1){
+            let list = fieldsList.flatMap(i=>{
+                if(i.geometry?.coordinates){
                     return i.geometry.coordinates
                 }
                 return []
             })
-
             setFields(list)
         }
     },[fieldsList])
+
+    useEffect(()=>{
+        setUnit(unitsPosition)
+
+
+    },[unitsPosition])
 
 
 
     useEffect(() => {
 
+        let vectorSource = new VectorTile({
+            format: new GeoJSON(),
+            tileUrlFunction: function(tileCoord, pixelRatio, projection) {
+                return 'https://ahocevar.com/geoserver/wfs?service=WFS&' +
+                    'version=1.1.0&request=GetFeature&typename=osm:water_areas&' +
+                    'outputFormat=application/json&srsname=EPSG:3857&' +
+                    'bbox=' + vectorSource.getTileGrid().getTileCoordExtent(tileCoord).join(',') + ',EPSG:3857';
+            },
+            tileGrid: createXYZ()
+        });
+
+        let vector = new VectorTile({
+            source: vectorSource,
+            style: new Style({
+                stroke: new Stroke({
+                    color: 'rgba(0, 0, 255, 1.0)',
+                    width: 2
+                })
+            })
+        });
+
+
+
         map = new Map({
             target: 'map',
             view: new View({
-                center: fromLonLat([55, 55]),
-                zoom: 11
+                center: fromLonLat([55.2694, 54.67340]),
+                projection: 'EPSG:3857',
+                zoom: 13,
+                maxZoom: 16,
+                minZoom: 8
             }),
+            controls:[
+                new Zoom(),
+                new ScaleLine()
+            ],
             layers: [
+                // vector,
                 new TileLayer({
                     source: new OSM()
                 }),
@@ -71,39 +116,67 @@ const OpenLayers = () => {
 
     useEffect(() => {
         if(fields.length){
-            // [lng, lat]
-            let obj = async ()=>{
-                let fieldsTime = fields
-                let fieldsSecond = fields
 
-                let polygonTime = await new Polygon(fieldsTime).transform('EPSG:4326', 'EPSG:3857');
-                let polygonSecond = await new Polygon(fieldsSecond).transform('EPSG:4326', 'EPSG:3857');
+                let fieldsCopy = fields
 
-                let featureTime = await new Feature(polygonTime);
-                let featureSecond = await new Feature(polygonSecond);
+                let polygonTime = new Polygon(fieldsCopy).transform('EPSG:4326', 'EPSG:3857');
 
-                let vectorSourceTime = await new VectorSource();
-                let vectorSourceSecond = await new VectorSource();
+                let featureTime = new Feature(polygonTime);
+                let vectorSource = new VectorSource();
 
-                vectorSourceTime.addFeature(featureTime);
-                vectorSourceSecond.addFeature(featureSecond);
+                vectorSource.addFeature(featureTime);
 
-                let vectorLayerTime = await new VectorLayer({
-                    source: vectorSourceTime
+                let vectorLayerFieldsCopy = new VectorLayer({
+                    source: vectorSource,
+
                 });
 
-                let vectorLayerSecond = await new VectorLayer({
-                    source: vectorSourceSecond
+                let t = map.addLayer(vectorLayerFieldsCopy);
+        }
+    }, [fields])
+
+
+
+
+
+    useEffect(()=>{
+        if(units.length){
+
+            let unitsCopy = units.flatMap(i=> {
+                if(i.values['rt_position']) {
+                    return [i.values['rt_position']]
+                }else{
+                    return []
+                }
+            })
+
+
+            unitsCopy = unitsCopy.map(i=>{
+                return new Feature({
+                    geometry: new Point(fromLonLat(i)),
+                    name: 'Somewhere else',
                 });
+            })
 
-                let t = await map.addLayer(vectorLayerTime);
-                let tt = await map.addLayer(vectorLayerSecond);
-            }
-            obj()
+            let vectorSourceUnitCopy = new VectorSource({
+                features: unitsCopy
+            });
 
+            let vectorLayerUnitsCopy = new VectorLayer({
+                source: vectorSourceUnitCopy,
+                style:  new Style({
+                    image: new Circle({
+                        radius: 5,
+                        fill: new Fill({color: '#f80101'}),
+                        stroke: new Stroke({color: '#9a7373', width: 1}),
+                    }),
+                }),
+            });
+
+            let tt = map.addLayer(vectorLayerUnitsCopy);
         }
 
-    }, [fields])
+    },[units])
 
 
     return (
