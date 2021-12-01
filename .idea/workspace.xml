@@ -20,18 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ac27655-a586-4c4b-9180-0ee6b5b557b1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/assets/red.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layout/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/leaflet/layers/fieldsLayer/field/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/leaflet/layers/fieldsLayer/field/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/leaflet/layers/fieldsLayer/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/leaflet/layers/fieldsLayer/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/leaflet/layers/unitsLayer/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/leaflet/layers/unitsLayer/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/leaflet/layers/unitsLayer/unit/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/leaflet/layers/unitsLayer/unit/style.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/menu/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/menu/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/menu/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/menu/styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layout/MenuLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/MenuLayout.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/leaflet/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/leaflet/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/mapbox/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/mapbox/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/mapbox/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/mapbox/style.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/openLayers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/openLayers/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setupProxy.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setupProxy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/api.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,12 +64,14 @@
     <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/assets" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/pages/leaflet/layers/fieldsLayer/field" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/leaflet/layers/fieldsLayer/field" />
+      <recent name="$PROJECT_DIR$/src/pages/leaflet/layers/unitlayer" />
       <recent name="$PROJECT_DIR$/src/assets" />
       <recent name="$PROJECT_DIR$/src/store" />
     </key>
@@ -91,7 +92,7 @@
       <workItem from="1637836873217" duration="29807000" />
       <workItem from="1638162269123" duration="6933000" />
       <workItem from="1638171221656" duration="48000" />
-      <workItem from="1638181822976" duration="34824000" />
+      <workItem from="1638181822976" duration="46429000" />
     </task>
     <task id="LOCAL-00001" summary="save">
       <created>1637755283511</created>
@@ -142,7 +143,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638191226314</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="save">
+      <created>1638276812881</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1638276812881</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,20 +202,20 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2668" y="224" width="414" height="593" key="VCS.ChangeListViewerDialog/1920.0.1920.1080/0.0.1920.1048@1920.0.1920.1080" timestamp="1638251536075" />
-    <state x="2475" y="259" width="800" height="523" key="Vcs.Push.Dialog.v2" timestamp="1638191230101">
+    <state x="2475" y="259" width="800" height="523" key="Vcs.Push.Dialog.v2" timestamp="1638276819402">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2475" y="259" width="800" height="523" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.0.1920.1048@1920.0.1920.1080" timestamp="1638191230101" />
+    <state x="2475" y="259" width="800" height="523" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.0.1920.1048@1920.0.1920.1080" timestamp="1638276819402" />
     <state x="2475" y="259" width="800" height="523" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637825784864" />
     <state x="2586" y="272" width="587" height="502" key="find.popup" timestamp="1638274478966">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2586" y="272" width="587" height="502" key="find.popup/1920.0.1920.1080/0.0.1920.1048@1920.0.1920.1080" timestamp="1638274478966" />
     <state x="2586" y="272" width="587" height="502" key="find.popup/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637830624656" />
-    <state x="2544" y="240" key="run.anything.popup" timestamp="1637902241382">
+    <state x="2544" y="240" key="run.anything.popup" timestamp="1638344090337">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2544" y="240" key="run.anything.popup/1920.0.1920.1080/0.0.1920.1048@1920.0.1920.1080" timestamp="1637902241382" />
+    <state x="2544" y="240" key="run.anything.popup/1920.0.1920.1080/0.0.1920.1048@1920.0.1920.1080" timestamp="1638344090337" />
     <state x="2544" y="240" key="run.anything.popup/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1637836310136" />
     <state x="2543" y="230" width="672" height="160" key="search.everywhere.popup" timestamp="1638275881831">
       <screen x="1920" y="0" width="1920" height="1080" />

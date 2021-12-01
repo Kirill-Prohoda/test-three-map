@@ -17,6 +17,9 @@ import {
 import LayerGroup from "ol/layer/Group";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {useActions} from "../../hooks/useActions";
+import FieldsLayerContainer from "./layers/fieldsLayer";
+import UnitsLayerContainer from "./layers/unitsLayer";
+import {GridLayer} from "leaflet/dist/leaflet-src.esm";
 
 
 const Leaflet = () =>{
@@ -51,12 +54,24 @@ const Leaflet = () =>{
             center={[55.2694, 54.67340]}
             preferCanvas={true}
             transform3DLimit={0}
+
             // renderer={L.canvas()}>
             zoom={10}
-            wheelDebounceTime={0}
+            maxZoom={18}
+            wheelDebounceTime={20}
+            wheelPxPerZoomLevel={100}
+            animate={false} // при стандарте ни на что не влияет
             // zoomAnimation={false}
             // fadeAnimation={false}
-            zoomDelta={0.10}
+            zoomAnimationThreshold={3} //default - 4
+            duration={0.1} // 0.25
+            easeLinearity={0.1} // 0.25
+
+            markerZoomAnimation={true}
+
+
+
+            zoomDelta={0.1}
             scrollWheelZoom={true}>
 
             <TileLayer
@@ -64,94 +79,12 @@ const Leaflet = () =>{
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
+            <GridLayer
 
-            <FeatureGroup>
-                    {fields.map((field,index)=>{
-                        return (
-                            <Polygon
-                                positions={field.map(i=>i.map(j=>[j[1], j[0]]))}
-                            />
-                        )
-                    })
-                    }
-            </FeatureGroup>
+            />
 
-            {/*<FeatureGroup>*/}
-            {/*    {fields.map((field,index)=>{*/}
-            {/*        return (*/}
-            {/*            <Polygon*/}
-            {/*                positions={field.map(i=>i.map(j=>[j[1], j[0]]))}*/}
-            {/*            />*/}
-            {/*        )*/}
-            {/*    })*/}
-            {/*    }*/}
-            {/*</FeatureGroup>*/}
-
-
-            <FeatureGroup>
-                {units.map((unit,index)=>{
-
-                    if(unit?.values['rt_position']){
-                        let lat = unit.values['rt_position'][0]
-                        let lon = unit.values['rt_position'][1]
-                        return (
-                            <Marker
-                                position={[lon, lat]}
-                                icon={L.icon({
-                                    iconUrl: red,
-                                    iconSize: [10,10],
-                                    iconAnchor: [10, 10],
-                                    popupAnchor: null,
-                                    shadowUrl: null,
-                                    shadowSize: null,
-                                    shadowAnchor: null
-                                })}
-                            />
-                        )
-                    }
-
-                })
-                }
-            </FeatureGroup>
-
-                {/*<LayersControl.Overlay name="Поля2">*/}
-                {/*    {fields.map((field,index)=>{*/}
-                {/*        return (*/}
-                {/*            <Polygon*/}
-                {/*                positions={field}*/}
-                {/*            />*/}
-                {/*        )*/}
-                {/*    })*/}
-                {/*    }*/}
-                {/*</LayersControl.Overlay>*/}
-            {/*</FeatureGroup>*/}
-
-
-
-            {/*{fields.map((field,index)=>{*/}
-            {/*    return (*/}
-            {/*        <Polygon*/}
-            {/*            positions={field}*/}
-            {/*        />*/}
-            {/*    )*/}
-            {/*})*/}
-            {/*}*/}
-
-                {/*<LayerGroup>*/}
-
-                {/*</LayerGroup>*/}
-
-            {/*<MapSetting typeLayers={typeLayers}/>*/}
-
-            {/*<LayersControl>*/}
-            {/*    <LayersControl.Overlay name="Поля">*/}
-            {/*        <FieldsLayerContainer position={position} />*/}
-            {/*    </LayersControl.Overlay>*/}
-
-            {/*    <LayersControl.Overlay name="Сетка">*/}
-            {/*        <MappingLayerContainer position={position} layerMapping={layerMapping}/>*/}
-            {/*    </LayersControl.Overlay>*/}
-            {/*</LayersControl>*/}
+            <FieldsLayerContainer fields={fields} />
+            <UnitsLayerContainer units={units} />
 
         </MapContainer>
     </MenuLayout>

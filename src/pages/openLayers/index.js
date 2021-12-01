@@ -27,6 +27,8 @@ import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {Vector} from "ol";
 import {createXYZ} from 'ol/tilegrid'
 import {useActions} from "../../hooks/useActions";
+import TileWMS from 'ol/source/TileWMS';
+import TileCache from 'ol/TileCache';
 
 
 var map;
@@ -99,16 +101,31 @@ const OpenLayers = () => {
                 new ScaleLine()
             ],
             layers: [
-                // vector,
-                new TileLayer({
-                    source: new OSM()
-                }),
-                new VectorLayer({
-                    source: new VectorSource({
-                        features: []
-                        // features: new GeoJSON().readFeatures(feature)
-                    })
-                })
+                // // vector,
+
+                // new TileLayer({
+                //     source: new OSM()
+                // }),
+
+                //
+                // new TileLayer({
+                //     source: new TileWMS({
+                //         cacheSize: 16000,
+                //         params: {'LAYERS': 'topp:states', 'TILED': true},
+                //         serverType: 'geoserver',
+                //         url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                //         // Countries have transparency, so do not fade tiles:
+                //         transition: 0,
+                //     })
+                // }),
+                //
+                //
+                // new VectorLayer({
+                //     source: new VectorSource({
+                //         features: []
+                //         // features: new GeoJSON().readFeatures(feature)
+                //     })
+                // })
             ],
         });
 
@@ -128,6 +145,10 @@ const OpenLayers = () => {
 
                 let vectorLayerFieldsCopy = new VectorLayer({
                     source: vectorSource,
+                    renderBuffer: 100,
+                    updateWhileAnimating: true,
+                    updateWhileInteracting: true,
+                    declutter: true
 
                 });
 
@@ -177,6 +198,16 @@ const OpenLayers = () => {
         }
 
     },[units])
+
+
+
+
+
+
+
+
+
+
 
 
     return (
