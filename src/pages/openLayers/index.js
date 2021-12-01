@@ -7,6 +7,7 @@ import MenuLayout from "../../layout/MenuLayout";
 //   Interactions, Overlays, Controls,
 //   Map, Layers, Overlay, Util
 // } from "react-openlayers";
+import 'ol/ol.css';
 
 import Map from 'ol/Map';
 import View from 'ol/View';
@@ -29,6 +30,7 @@ import {createXYZ} from 'ol/tilegrid'
 import {useActions} from "../../hooks/useActions";
 import TileWMS from 'ol/source/TileWMS';
 import TileCache from 'ol/TileCache';
+import Cluster from "ol/source/Cluster";
 
 
 var map;
@@ -103,9 +105,9 @@ const OpenLayers = () => {
             layers: [
                 // // vector,
 
-                // new TileLayer({
-                //     source: new OSM()
-                // }),
+                new TileLayer({
+                    source: new OSM()
+                }),
 
                 //
                 // new TileLayer({
@@ -143,13 +145,13 @@ const OpenLayers = () => {
 
                 vectorSource.addFeature(featureTime);
 
+                // const clusterSource = new Cluster({
+                //     source: vectorSource,
+                // });
+
                 let vectorLayerFieldsCopy = new VectorLayer({
                     source: vectorSource,
-                    renderBuffer: 100,
-                    updateWhileAnimating: true,
-                    updateWhileInteracting: true,
-                    declutter: true
-
+                    // source: clusterSource,
                 });
 
                 let t = map.addLayer(vectorLayerFieldsCopy);

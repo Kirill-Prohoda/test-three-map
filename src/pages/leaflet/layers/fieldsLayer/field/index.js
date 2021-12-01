@@ -12,7 +12,6 @@ const FieldContainer = memo(({field}) =>{
         />
     )
 },(prev, next)=>{
-    debugger
     return true
 })
 export default FieldContainer

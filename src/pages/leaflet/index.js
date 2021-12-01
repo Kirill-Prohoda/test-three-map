@@ -8,6 +8,7 @@ import cloud from './../../assets/cloud.svg'
 import play from './../../assets/play.svg'
 import red from './../../assets/red.svg'
 import L from 'leaflet'
+
 import {
     LayersControl,
     MapContainer,
@@ -20,7 +21,9 @@ import {useActions} from "../../hooks/useActions";
 import FieldsLayerContainer from "./layers/fieldsLayer";
 import UnitsLayerContainer from "./layers/unitsLayer";
 import {GridLayer} from "leaflet/dist/leaflet-src.esm";
+import TileLayerCustom from "./layers/tileLayer";
 
+// import './layers/tileLayer/buffer';
 
 const Leaflet = () =>{
 
@@ -74,14 +77,8 @@ const Leaflet = () =>{
             zoomDelta={0.1}
             scrollWheelZoom={true}>
 
-            <TileLayer
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-            <GridLayer
-
-            />
 
             <FieldsLayerContainer fields={fields} />
             <UnitsLayerContainer units={units} />

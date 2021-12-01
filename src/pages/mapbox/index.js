@@ -109,7 +109,6 @@ const Mapbox = () =>{
                     'type': 'FeatureCollection',
                     'features': [
                         ...units.map(unit=>{
-                            debugger
                             if(unit.values['rt_position']){
                                 let lat = unit.values['rt_position'][0]
                                 let lon = unit.values['rt_position'][1]
